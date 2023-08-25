@@ -9,7 +9,7 @@ void delay()
     int i, j;
 
     for (i=0; i<1000; i++)
-    for (j=0; j<500; j++);
+        for (j=0; j<500; j++);
 }
 void main(void)
 {
@@ -26,35 +26,35 @@ void main(void)
     P3M1 = 0x00;
     P4M0 = 0x00;
     P4M1 = 0x00;
-    P5M0 = 0x00;
+    P5M0 = 0x20;
     P5M1 = 0x00;
     P6M0 = 0x00;
     P6M1 = 0x00;
     P7M0 = 0x00;
     P7M1 = 0x00;
-    
+
     P1 = 0xff;
     delay();
     temp = P1;
-    
-   for(;;count++)
-   {
-     if(count%10000 ==0)
-     {
-         LED1 = ~LED1;
-         NC = ~NC;
-         NO = ~NO;
-     }
-     if(P1 == temp) 
-     {
-         LED2 = 1;
-     }
-     else
-     {
-         LED2 = 0;
-     }
-   }
-    
+
+    for(;; count++)
+    {
+        if(count%10000 ==0)
+        {
+            LED1 = ~LED1;
+            NC = ~NC;
+            NO = ~NO;
+        }
+        if(P1 == temp)
+        {
+            LED2 = 1;
+        }
+        else
+        {
+            LED2 = 0;
+        }
+    }
+
 }
 
 
