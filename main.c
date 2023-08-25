@@ -14,11 +14,12 @@ void delay()
 void main(void)
 {
     static unsigned long count;
+    char temp;
     delay();
     P0M0 = 0x00;
     P0M1 = 0x00;
     P1M0 = 0x00;
-    P1M1 = 0x00;
+    P1M1 = 0xff;
     P2M0 = 0x00;
     P2M1 = 0x00;
     P3M0 = 0x00;
@@ -32,23 +33,25 @@ void main(void)
     P7M0 = 0x00;
     P7M1 = 0x00;
     
-    P1 = 0x3f;
+    P1 = 0xff;
+    delay();
+    temp = P1;
     
    for(;;count++)
    {
-     if(count%100000)
+     if(count%10000 ==0)
      {
          LED1 = ~LED1;
          NC = ~NC;
          NO = ~NO;
      }
-     if(P1 & 0x3f == 0x3f) 
+     if(P1 == temp) 
      {
-         LED2 = 0;
+         LED2 = 1;
      }
      else
      {
-         LED2 = 1;
+         LED2 = 0;
      }
    }
     
