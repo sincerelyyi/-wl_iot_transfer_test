@@ -1,16 +1,50 @@
+/** **************************************************************************************
+ * @file
+ * @brief          iot_transfer test 
+ * @note
+ * @author          zhangjiayi
+ * @date            2023-01-03 06:35:39
+ * @version         v0.1
+ * @copyright       Copyright (c) 2020-2050  zhangjiayi
+ * @par             LastEdit
+ * @LastEditTime    2023-01-03 21:36:01
+ * @LastEditors     zhangjiayi
+ * @FilePath
+ *****************************************************************************************/
 #include "main.h"
+#ifndef SDCC
 sbit  LED1 = P3^6;
 sbit  LED2 = P3^7;
 sbit  NC   = P5^4;
 sbit  NO   = P5^5;
+#else
+SBIT(LED1 , 0xB0,6);
+SBIT(LED2 , 0xB0,7);
+SBIT(NC   , 0xC8,4);
+SBIT(NO   , 0xC8,5);
+#endif
 
+/** **************************************************************************************
+ * @brief delay
+ * @note
+ * @param void
+ * @return 
+ * @retval  
+ *****************************************************************************************/
 void delay()
 {
     int i, j;
-
     for (i=0; i<1000; i++)
         for (j=0; j<500; j++);
 }
+
+/** **************************************************************************************
+ * @brief main
+ * @note
+ * @param void
+ * @return 
+ * @retval  
+ *****************************************************************************************/
 void main(void)
 {
     static unsigned long count;
@@ -41,9 +75,9 @@ void main(void)
     {
         if(count%10000 ==0)
         {
-            LED1 = ~LED1;
-            NC = ~NC;
-            NO = ~NO;
+            LED1 = !LED1;
+            NC = !NC;
+            NO = !NO;
         }
         if(P1 == temp)
         {
@@ -56,6 +90,3 @@ void main(void)
     }
 
 }
-
-
-
