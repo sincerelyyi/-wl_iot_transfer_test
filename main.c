@@ -48,7 +48,7 @@ void delay()
 void main(void)
 {
     static unsigned long count;
-    char temp;
+    char temp = 0;
     delay();
     P0M0 = 0x00;
     P0M1 = 0x00;
@@ -69,24 +69,32 @@ void main(void)
 
     P1 = 0xff;
     delay();
-    temp = P1;
     NC = 0;
     NO = 1;
     for(;; count++)
     {
         if(count%10000 ==0)
         {
-            LED1 = !LED1;
+            if(temp == 0)
+            {
+                LED1 = !LED1;
+            }
+            else
+            {
+                LED1 = 1;
+            }
             NC = !NC;
             NO = !NO;
         }
-        if(P1 == temp)
+        if(P1 == 0x3f)
         {
             LED2 = 1;
         }
         else
         {
             LED2 = 0;
+            temp = 1;
+            
         }
     }
 
