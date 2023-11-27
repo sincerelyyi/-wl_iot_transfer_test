@@ -1,6 +1,6 @@
 /** **************************************************************************************
  * @file
- * @brief          iot_transfer test 
+ * @brief          iot_transfer test
  * @note
  * @author          zhangjiayi
  * @date            2023-01-03 06:35:39
@@ -18,18 +18,18 @@ sbit  LED2 = P3^7;
 sbit  NC   = P5^4;
 sbit  NO   = P5^5;
 #else
-SBIT(LED1 , 0xB0,6);
-SBIT(LED2 , 0xB0,7);
-SBIT(NC   , 0xC8,4);
-SBIT(NO   , 0xC8,5);
+SBIT(LED1, 0xB0,6);
+SBIT(LED2, 0xB0,7);
+SBIT(NC, 0xC8,4);
+SBIT(NO, 0xC8,5);
 #endif
 
 /** **************************************************************************************
  * @brief delay
  * @note
  * @param void
- * @return 
- * @retval  
+ * @return
+ * @retval
  *****************************************************************************************/
 void delay()
 {
@@ -42,8 +42,8 @@ void delay()
  * @brief main
  * @note
  * @param void
- * @return 
- * @retval  
+ * @return
+ * @retval
  *****************************************************************************************/
 void main(void)
 {
@@ -73,28 +73,42 @@ void main(void)
     NO = 1;
     for(;; count++)
     {
-        if(count%10000 ==0)
+        if(count%3000 ==0)
         {
-            if(temp == 0)
-            {
-                LED1 = !LED1;
-            }
-            else
-            {
-                LED1 = 1;
-            }
             NC = !NC;
             NO = !NO;
         }
-        if(P1 == 0x3f)
+
+        if((P1 & 0x15) == 0)
         {
             LED2 = 1;
         }
-        else
+        else if((P1 & 0x15) == 0x15)
         {
             LED2 = 0;
-            temp = 1;
-            
+        }
+        else
+        {
+            if(count%300 ==0)
+            {
+                LED2 = !LED2;
+            }
+        }
+
+        if((P1 & 0x2a) == 0)
+        {
+            LED1 = 1;
+        }
+        else if((P1 & 0x2a) == 0x2a)
+        {
+            LED1 = 0;
+        }
+        else
+        {
+            if(count%300 ==0)
+            {
+                LED1 = !LED1;
+            }
         }
     }
 
