@@ -70,7 +70,8 @@ void main(void)
     P1 = 0xff;
     delay();
     temp = P1;
-
+    NC = 0;
+    NO = 1;
     for(;; count++)
     {
         if(count%10000 ==0)
